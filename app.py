@@ -90,23 +90,54 @@ st.header("📚 Gestión de Datos de Estudiantes")
 
 st.write("Agrega información de 18 jóvenes del ciclo:")
 
+# Lista de estudiantes
+nombres_estudiantes = [
+    "MARIUXI ANDREA CALLE DUMAGUALA",
+    "MAURA MILETH CALLE LEON",
+    "STEVEN ALEXANDER CARPIO CHILLOGALLO",
+    "ERICK FERNANDO CHACON AVILA",
+    "EDWIN ALEXANDER CHOEZ DOMINGUEZ",
+    "ADRIANA VALENTINA CORNEJO ULLOA",
+    "DAVID ALFONSO ESPINOZA CHÉVEZ",
+    "ANTHONY MAURICIO FAJARDO VASQUEZ",
+    "FREDDY ISMAEL GOMEZ ORDOÑEZ",
+    "WENDY NICOLE LLIVICHUZHCA MAYANCELA",
+    "ALEXANDER ISMAEL LOJA LLIVICHUZHCA",
+    "DAVID ALEXANDER LOPEZ SALTOS",
+    "VICTOR JONNATHAN MENDEZ VILLA",
+    "JOHN SEBASTIAN MONTENEGRO CALLE",
+    "CARMEN ELIZABETH NEIRA INGA",
+    "JOEL STALYN PESANTEZ BERREZUETA",
+    "GILSON STALYN TENEMEA AGUILAR",
+    "KENNY ALEXANDER VALDIVIESO CORONEL"
+]
+
+# Materias (puedes asignarlas aleatoriamente o iguales para todos)
+materias = [
+    "Inteligencia Artificial",
+    "Aplicaciones en la Nube",
+    "Aplicaciones Seguras",
+    "Formulación de Proyectos",
+    "Proyectos Tecnológicos"
+]
+
 # Crear DataFrame base
 data = {
-    "nombres": [""] * 18,
-    "apellidos": [""] * 18,
-    "edad": [0] * 18,
-    "notas": [0.0] * 18,
-    "materias": [""] * 18
+    "nombres_completos": nombres_estudiantes,
+    "edad": [0] * len(nombres_estudiantes),
+    "nota_final": [0.0] * len(nombres_estudiantes),
+    "materia": [materias[i % len(materias)] for i in range(len(nombres_estudiantes))]
 }
 
 df_estudiantes = pd.DataFrame(data)
 
 # DataFrame editable
+st.write("📝 **Editar o actualizar datos:**")
 df_editado = st.data_editor(df_estudiantes, num_rows="dynamic", use_container_width=True)
 
 # Mostrar los datos
-st.write("**Datos actuales:**")
-st.dataframe(df_editado)
+st.write("**📊 Datos actuales:**")
+st.dataframe(df_editado, use_container_width=True)
 
 # Botón para descargar CSV
 csv = df_editado.to_csv(index=False).encode('utf-8')
